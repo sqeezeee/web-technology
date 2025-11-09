@@ -1,4 +1,4 @@
-/* Подключение локального шрифта Roboto Flex */
+/* Подключение шрифта*/
 
 @font-face {
     font-family: 'Roboto Flex';
@@ -101,9 +101,7 @@ table td {
     border: 1px solid #000;
     padding: 8px;
     text-align: center;
-    /* горизонтальное выравнивание по центру */
     vertical-align: middle;
-    /* вертикальное выравнивание по центру */
 }
 
 
@@ -113,9 +111,6 @@ th {
     background-color: #f5f5f5;
     font-weight: bold;
 }
-
-
-/* Чередование фона для строк */
 
 tr:nth-child(even) {
     background-color: #fafafa;
