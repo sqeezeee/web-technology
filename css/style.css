@@ -1,0 +1,129 @@
+/* Подключение локального шрифта Roboto Flex */
+
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('../fonts/RobotoFlex.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* Универсальные стили */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto Flex', sans-serif;
+    line-height: 1.6;
+    color: #000;
+    background-color: #fff;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+/* Шапка сайта */
+
+header {
+    text-align: left;
+    padding: 20px 0;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+
+/* Навигация */
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+}
+
+nav a:hover {
+    color: #ff5100;
+}
+
+
+/* Основной контент */
+
+main img {
+    width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+h2 {
+    font-size: 22px;
+    margin: 15px 0;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+
+/* Списки */
+
+ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+
+/* Таблица блюд */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+th,
+td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+
+/* Футер */
+
+footer {
+    background-color: #000;
+    color: #fff;
+    text-align: left;
+    padding: 15px;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
