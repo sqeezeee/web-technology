@@ -1,0 +1,139 @@
+#scale-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#scale-container {
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+}
+
+.food-section {
+    padding: 18px 0;
+    background: transparent;
+}
+
+.food-section>h2 {
+    margin: 8px 0 14px 0;
+    font-size: 22px;
+}
+
+.dish-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.dish {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 35px;
+    cursor: pointer;
+    filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
+    transition: background .15s, border-color .15s, transform .12s;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.dish:hover {
+    border-color: tomato;
+    transform: translateY(-4px);
+}
+
+.dish img {
+    width: 100%;
+    height: auto;
+    border-radius: 35px;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+.dish-price {
+    font-weight: 700;
+    font-size: 18px;
+    margin: 6px 0 4px 0;
+}
+
+.dish-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 4px 0 6px 0;
+    line-height: 1.2;
+}
+
+.dish-weight {
+    color: #6b6b6b;
+    margin-top: auto;
+    margin-bottom: 12px;
+}
+
+
+/* Кнопка */
+
+.dish-add {
+    background: #f1eee9;
+    padding: 10px 30px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background .15s, color .15s;
+}
+
+.dish:hover .dish-add {
+    background: tomato;
+    color: #fff;
+}
+
+.dish p {
+    margin: 0 0 6px 0;
+}
+
+@media (max-width: 800px) {
+    .dish-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    header h1 {
+        text-align: center;
+    }
+    nav {
+        justify-content: space-between;
+    }
+    nav a {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .dish-grid {
+        grid-template-columns: 1fr;
+    }
+    header h1 {
+        text-align: center;
+    }
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    nav a {
+        font-size: 20px;
+    }
+    .food-section>h2 {
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dish,
+    .dish img {
+        transition: none;
+        transform: none;
+    }
+}

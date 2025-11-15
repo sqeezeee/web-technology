@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Собрать ланч — Вкусно</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lunch.css">
+</head>
+
+<body>
+    <a id="active" href="make_lunch.html"></a>
+    <div id="site-root">
+        <div id="scale-wrapper">
+            <div id="scale-container">
+
+                <header>
+                    <h1>Ресторан "Вкусно"</h1>
+                    <nav>
+                        <a href="index.html#about">О нас</a>
+                        <a id="active" href="make_lunch.html">Собрать ланч</a>
+                        <a href="orders.html">Заказы</a>
+                        <a href="#contacts">Контакты</a>
+                    </nav>
+                </header>
+
+                <main>
+
+                    <!-- СУПЫ -->
+                    <section class="food-section">
+                        <h2>Супы</h2>
+                        <div class="dish-grid">
+
+                            <div class="dish">
+                                <img src="img/dishes/soups/norwegian_soup.jpg" alt="Норвежский">
+                                <p class="dish-price ">270₽</p>
+                                <p class="dish-name ">Норвежский суп</p>
+                                <p class="dish-weight ">330 мл</p>
+                                <button class="dish-add ">Добавить</button>
+                            </div>
+
+                            <div class="dish ">
+                                <img src="img/dishes/soups/gazpacho.jpg" alt="Гаспачо">
+                                <p class="dish-price ">195₽</p>
+                                <p class="dish-name ">Гаспачо</p>
+                                <p class="dish-weight ">350 мл</p>
+                                <button class="dish-add ">Добавить</button>
+                            </div>
+
+                            <div class="dish ">
+                                <img src="img/dishes/soups/mushroom_soup.jpg" alt="Грибной">
+                                <p class="dish-price ">185₽</p>
+                                <p class="dish-name ">Грибной суп-пюре</p>
+                                <p class="dish-weight ">330 мл</p>
+                                <button class="dish-add ">Добавить</button>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- ГЛАВНЫЕ БЛЮДА -->
+                    <section class="food-section ">
+                        <h2>Главные блюда</h2>
+                        <div class="dish-grid ">
+
+                            <div class="dish ">
+                                <img src="img/dishes/main_course/chickencutletsandmashedpotatoes.jpg" alt="Котлеты">
+                                <p class="dish-price ">225₽</p>
+                                <p class="dish-name ">Котлеты из курицы с картофельным пюре</p>
+                                <p class="dish-weight ">280 г</p>
+                                <button class="dish-add ">Добавить</button>
+                            </div>
+
+                            <div class="dish ">
+                                <img src="img/dishes/main_course/friedpotatoeswithmushrooms1.jpg" alt="Жареная картошка">
+                                <p class="dish-price ">150₽</p>
+                                <p class="dish-name ">Жареная картошка с грибами</p>
+                                <p class="dish-weight ">250 г</p>
+                                <button class="dish-add ">Добавить</button>
+                            </div>
+
+                            <div class="dish ">
+                                <img src="img/dishes/main_course/lasagna.jpg" alt="Лазанья">
+                                <p class="dish-price ">385₽</p>
+                                <p class="dish-name ">Лазанья</p>
+                                <p class="dish-weight ">310 г</p>
+                                <button class="dish-add ">Добавить</button>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- НАПИТКИ -->
+                    <section class="food-section ">
+                        <h2>Напитки</h2>
+                        <div class="dish-grid ">
+
+                            <div class="dish ">
+                                <img src="img/dishes/beverages/orangejuice.jpg" alt="Апельсиновый сок">
+                                <p class="dish-price ">120₽</p>
+                                <p class="dish-name ">Апельсиновый сок</p>
+                                <p class="dish-weight ">300 мл</p>
+                                <button class="dish-add ">Добавить</button>
+                            </div>
+
+                            <div class="dish ">
+                                <img src="img/dishes/beverages/applejuice.jpg" alt="Яблочный сок">
+                                <p class="dish-price ">90₽</p>
+                                <p class="dish-name ">Яблочный сок</p>
+                                <p class="dish-weight ">300 мл</p>
+                                <button class="dish-add ">Добавить</button>
+                            </div>
+
+                            <div class="dish ">
+                                <img src="img/dishes/beverages/carrotjuice.jpg" alt="Морковный сок">
+                                <p class="dish-price ">110₽</p>
+                                <p class="dish-name ">Морковный сок</p>
+                                <p class="dish-weight ">300 мл</p>
+                                <button class="dish-add ">Добавить</button>
+                            </div>
+
+                        </div>
+                    </section>
+
+                </main>
+
+                <footer id="contacts">
+                    <p>Позвонить нам <a href="tel:+70000000000 ">+7-000-000-00-00</a></p>
+                </footer>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const wrapper = document.getElementById('site-root');
+            const container = document.getElementById('scale-container');
+            const wrapperParent = document.getElementById('scale-wrapper');
+
+            if (!wrapper || !container) return;
+
+            container.style.transformOrigin = 'top center';
+            wrapperParent.style.display = 'flex';
+            wrapperParent.style.justifyContent = 'center';
+
+            function scalePage() {
+                const baseWidth = wrapper.clientWidth || 800;
+
+                let scale = window.innerWidth / baseWidth;
+                if (scale > 1) scale = 1;
+
+                container.style.transform = `scale(${scale})`;
+
+                const rect = container.getBoundingClientRect();
+                wrapperParent.style.minHeight = rect.height + 'px';
+            }
+
+            window.addEventListener('load', scalePage);
+            window.addEventListener('resize', scalePage);
+        })();
+    </script>
+
+</body>
+
+</html>

@@ -38,6 +38,10 @@ h1 {
     font-weight: 700;
 }
 
+nav a#active {
+    color: tomato;
+}
+
 
 /* Навигация */
 
