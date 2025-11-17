@@ -126,6 +126,93 @@
 
                 </main>
 
+                <!--БЛОК ФОРМЫ "Сделать заказ"-->
+                <section class="order-section">
+                    <h2 class="order-title">Сделать заказ</h2>
+
+                    <form class="order-form" action="https://httpbin.org/post" method="POST">
+
+                        <div class="order-columns">
+
+                            <!-- БЛОК 1 — ЗАКАЗ КЛИЕНТА -->
+                            <div class="order-block">
+                                <h3>Ваш заказ</h3>
+
+                                <label for="soup">Суп</label>
+                                <select id="soup" name="soup" required>
+                                    <option value="">Выберите суп</option>
+                                    <option value="norwegian">Норвежский суп</option>
+                                    <option value="gaspacho">Гаспачо</option>
+                                    <option value="mushroom">Грибной суп-пюре</option>
+                                </select>
+
+                                <label for="main">Главное блюдо</label>
+                                <select id="main" name="main" required>
+                                    <option value="">Выберите блюдо</option>
+                                    <option value="cutlets">Котлеты из курицы с картофельным пюре</option>
+                                    <option value="potatoes">Жареная картошка с грибами</option>
+                                    <option value="lasagna">Лазанья</option>
+                                </select>
+
+                                <label for="drink">Напиток</label>
+                                <select id="drink" name="drink" required>
+                                    <option value="">Выберите напиток</option>
+                                    <option value="orange">Апельсиновый сок</option>
+                                    <option value="apple">Яблочный сок</option>
+                                    <option value="carrot">Морковный сок</option>
+                                </select>
+
+                                <label for="comment">Комментарий</label>
+                                <textarea id="comment" name="comment" rows="4"></textarea>
+                            </div>
+
+                            <!-- БЛОК 2 — ДАННЫЕ КЛИЕНТА -->
+                            <div class="order-block">
+                                <h3>Данные клиента</h3>
+
+                                <label for="name">Имя*</label>
+                                <input id="name" name="name" type="text" required>
+
+                                <label for="email">Email*</label>
+                                <input id="email" name="email" type="email" required>
+
+                                <label class="checkbox-label">
+                                    <input id="subscribe" name="subscribe" type="checkbox" checked>
+                                    <span>Получать новости и акции</span>
+                                </label>
+
+                                <label for="phone">Телефон*</label>
+                                <input id="phone" name="phone" type="tel" required>
+
+                                <label for="address">Адрес*</label>
+                                <input id="address" name="address" type="text" required>
+                                <em>Доставка осуществляется только по Москве</em>
+
+                                <p class="radio-title">Выберите время доставки*</p>
+                                <label class="radio-label">
+                                    <input type="radio" name="delivery_type" value="asap" required>
+                                    <span>Как можно скорее</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="delivery_type" value="set_time" required>
+                                    <span>Выбрать время</span>
+                                </label>
+
+                                <label for="delivery_time">Время доставки</label>
+                                <input id="delivery_time" name="delivery_time" type="time" min="07:00" max="23:00" step="300">
+                                <em>Доступное время для доставки с 7:00 до 23:00</em>
+
+                                <div class="order-buttons">
+                                    <button type="reset" class="reset-btn">Сбросить</button>
+                                    <button type="submit" class="submit-btn">Отправить</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </section>
+
                 <footer id="contacts">
                     <p>Позвонить нам <a href="tel:+70000000000 ">+7-000-000-00-00</a></p>
                 </footer>
@@ -134,34 +221,7 @@
         </div>
     </div>
 
-    <script>
-        (function() {
-            const wrapper = document.getElementById('site-root');
-            const container = document.getElementById('scale-container');
-            const wrapperParent = document.getElementById('scale-wrapper');
 
-            if (!wrapper || !container) return;
-
-            container.style.transformOrigin = 'top center';
-            wrapperParent.style.display = 'flex';
-            wrapperParent.style.justifyContent = 'center';
-
-            function scalePage() {
-                const baseWidth = wrapper.clientWidth || 800;
-
-                let scale = window.innerWidth / baseWidth;
-                if (scale > 1) scale = 1;
-
-                container.style.transform = `scale(${scale})`;
-
-                const rect = container.getBoundingClientRect();
-                wrapperParent.style.minHeight = rect.height + 'px';
-            }
-
-            window.addEventListener('load', scalePage);
-            window.addEventListener('resize', scalePage);
-        })();
-    </script>
 
 </body>
 
