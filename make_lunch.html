@@ -29,21 +29,67 @@
                 <main>
 
                     <!-- СУПЫ -->
-                    <section class="food-section">
+                    <section class="food-section" data-section="soup-section">
                         <h2>Супы</h2>
+
+                        <div class="filters" data-for="soup">
+                            <button type="button" class="filter-btn" data-kind="fish">Рыбный</button>
+                            <button type="button" class="filter-btn" data-kind="meat">Мясной</button>
+                            <button type="button" class="filter-btn" data-kind="veg">Вегетарианский</button>
+                        </div>
+
                         <div class="dish-grid" data-category="soup"></div>
                     </section>
 
                     <!-- ГЛАВНЫЕ -->
-                    <section class="food-section">
+                    <section class="food-section" data-section="main-section">
                         <h2>Главные блюда</h2>
+
+                        <div class="filters" data-for="main">
+                            <button type="button" class="filter-btn" data-kind="fish">Рыбное</button>
+                            <button type="button" class="filter-btn" data-kind="meat">Мясное</button>
+                            <button type="button" class="filter-btn" data-kind="veg">Вегетарианское</button>
+                        </div>
+
                         <div class="dish-grid" data-category="main"></div>
                     </section>
 
+                    <!-- САЛАТЫ / СТАРТЕРЫ -->
+                    <section class="food-section" data-section="salad-section">
+                        <h2>Салаты и стартеры</h2>
+
+                        <div class="filters" data-for="salad">
+                            <button type="button" class="filter-btn" data-kind="fish">Рыбный</button>
+                            <button type="button" class="filter-btn" data-kind="meat">Мясной</button>
+                            <button type="button" class="filter-btn" data-kind="veg">Вегетарианский</button>
+                        </div>
+
+                        <div class="dish-grid" data-category="salad"></div>
+                    </section>
+
                     <!-- НАПИТКИ -->
-                    <section class="food-section">
+                    <section class="food-section" data-section="drink-section">
                         <h2>Напитки</h2>
+
+                        <div class="filters" data-for="drink">
+                            <button type="button" class="filter-btn" data-kind="cold">Холодный</button>
+                            <button type="button" class="filter-btn" data-kind="hot">Горячий</button>
+                        </div>
+
                         <div class="dish-grid" data-category="drink"></div>
+                    </section>
+
+                    <!-- ДЕСЕРТЫ -->
+                    <section class="food-section" data-section="dessert-section">
+                        <h2>Десерты</h2>
+
+                        <div class="filters" data-for="dessert">
+                            <button type="button" class="filter-btn" data-kind="small">Маленькая порция</button>
+                            <button type="button" class="filter-btn" data-kind="medium">Средняя порция</button>
+                            <button type="button" class="filter-btn" data-kind="large">Большая порция</button>
+                        </div>
+
+                        <div class="dish-grid" data-category="dessert"></div>
                     </section>
 
                 </main>
@@ -52,7 +98,7 @@
                 <section class="order-section">
                     <h2 class="order-title">Сделать заказ</h2>
 
-                    <form class="order-form" action="https://httpbin.org/post" method="POST">
+                    <form id="order-form" class="order-form" action="https://httpbin.org/post" method="POST">
 
                         <div class="order-columns">
 
@@ -60,11 +106,12 @@
                             <div class="order-block">
                                 <h3>Ваш заказ</h3>
 
-                                <div id="order-summary">
+                                <div id="order-summary" class="order-summary">
                                     <p class="empty-summary">Ничего не выбрано</p>
                                 </div>
 
-                                <div id="order-total-block" style="display:none; margin-top:15px;">
+                                <!-- Стоимость под выбранными блюдами -->
+                                <div id="order-total-block" style="display:none; margin-top:12px;">
                                     <h4>Стоимость заказа:</h4>
                                     <p id="order-total" style="font-weight:bold; font-size:18px;"></p>
                                 </div>
@@ -97,12 +144,12 @@
 
                                 <p class="radio-title">Выберите время доставки*</p>
                                 <label class="radio-label">
-                                    <input type="radio" name="delivery_type" value="asap" required>
+                                    <input id="delivery_asap" type="radio" name="delivery_type" value="asap" required>
                                     <span>Как можно скорее</span>
                                 </label>
 
                                 <label class="radio-label">
-                                    <input type="radio" name="delivery_type" value="set_time" required>
+                                    <input id="delivery_settime" type="radio" name="delivery_type" value="set_time" required>
                                     <span>Выбрать время</span>
                                 </label>
 

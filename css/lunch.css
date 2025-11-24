@@ -20,6 +20,41 @@
     font-size: 22px;
 }
 
+/* Filters block */
+.filters {
+    margin-bottom: 12px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: #eafaf0; /* very light green */
+    color: #1a8a3a;
+    border: 1px solid rgba(26,138,58,0.12);
+    padding: 6px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: box-shadow .12s, transform .08s, background .12s;
+}
+
+.filter-btn:hover {
+    box-shadow: 0 0 0 6px rgba(26,138,58,0.06);
+    transform: translateY(-1px);
+}
+
+.filter-btn:active {
+    box-shadow: 0 0 0 10px rgba(26,138,58,0.08);
+}
+
+.filter-btn.active {
+    background: #1a8a3a;
+    color: #fff;
+    box-shadow: 0 0 0 6px rgba(26,138,58,0.18);
+}
+
+/* Dish grid & cards */
 .dish-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -47,7 +82,7 @@
 .dish img {
     width: 100%;
     height: auto;
-    border-radius: 35px;
+    border-radius: 20px;
     object-fit: cover;
     margin-bottom: 12px;
 }
@@ -81,6 +116,12 @@
 .dish:hover .dish-add {
     background: tomato;
     color: #fff;
+}
+
+/* selected card highlight */
+.dish.selected {
+    outline: 3px solid rgba(26,138,58,0.08);
+    box-shadow: 0 6px 18px rgba(26,138,58,0.06);
 }
 
 /* ФОРМА */
@@ -129,6 +170,8 @@
 
 .empty-summary {
     color: #777;
+    font-weight: 700;
+    margin: 6px 0;
 }
 
 .empty {
@@ -149,7 +192,6 @@
     width: 18px;
     height: 18px;
 }
-
 
 .order-buttons {
     margin-top: 18px;
@@ -172,8 +214,35 @@
     color: white;
 }
 
+/* order-summary styling */
+.order-summary {
+    background: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    min-height: 60px;
+    margin-bottom: 8px;
+}
+.order-summary .category-title { font-weight: 700; margin-top:8px; margin-bottom:6px; }
+.order-summary .item-line { margin:4px 0; font-size:15px; }
+
+/* order total */
+.order-total-block {
+    margin: 8px 0 0;
+    text-align: left;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .dish-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 600px) {
-    .order-columns {
+    .dish-grid {
         grid-template-columns: 1fr;
     }
+    .order-columns { grid-template-columns: 1fr; }
+    .filters { justify-content: center; }
 }
