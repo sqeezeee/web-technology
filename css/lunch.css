@@ -246,3 +246,264 @@
     .order-columns { grid-template-columns: 1fr; }
     .filters { justify-content: center; }
 }
+
+/* Комбо: блок с доступными вариантами ланчей */
+.combos-section {
+    padding: 22px 0;
+    background: transparent;
+    margin-bottom: 6px;
+}
+
+.combos-title {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 14px;
+}
+
+/* grid 3 колонки */
+.combos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    align-items: start;
+    background: #fff;
+    padding: 18px;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
+}
+
+/* отдельная карточка варианта (flex колонки) */
+.combo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 6px;
+}
+
+/* элемент внутри варианта: иконка + подпись (вертикально) */
+.combo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #222;
+}
+
+/* иконка */
+.combo-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    transition: transform .18s ease;
+}
+
+/* при наведении на картинку — сдвиг и масштаб */
+.combo-item img:hover {
+    transform: translateY(-6px) scale(1.06);
+}
+
+/* десертный блок: подпись меньше на 2 пункта */
+.combo.desserts-info .dessert-note {
+    margin-top: 6px;
+    font-size: 12px;
+    font-style: italic;
+    color: #666;
+}
+
+/* Overlay-уведомление (центрированное модальное уведомление) */
+.notify-overlay {
+    position: fixed;
+    left: 0; top: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: auto;
+}
+
+/* затемнённый фон */
+.notify-backdrop {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.25);
+}
+
+/* карточка уведомления */
+.notify-box {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    padding: 26px 28px;
+    border: 2px solid #222;
+    border-radius: 6px;
+    min-width: 320px;
+    max-width: 480px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* иконка в уведомлении */
+.notify-box img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+/* текст уведомления */
+.notify-text {
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: #111;
+}
+
+/* кнопка Окей */
+.notify-ok {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid #222;
+    background: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background .12s, color .12s, transform .08s;
+}
+
+/* hover: изменяем фон и цвет текста */
+.notify-ok:hover {
+    background: #222;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* малые экраны */
+@media (max-width: 900px) {
+    .combos-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .combos-grid { grid-template-columns: 1fr; }
+    .notify-box { padding: 18px; min-width: 260px; }
+    .combo-item img { width: 42px; height: 42px; }
+}
+
+/* контейнер всех групп */
+.combo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* внутри группы теперь две строки */
+.combo-row {
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+}
+
+/* сами иконки */
+.combo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+}
+
+.combo-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    transition: transform .18s;
+}
+
+.combo-item img:hover {
+    transform: translateY(-5px) scale(1.06);
+}
+
+/* адаптив */
+@media (max-width: 650px) {
+    .combo-row {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+@media (max-width: 650px) {
+    nav {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+/* ===== БЛОК КОМБО ===== */
+
+.combo-section {
+    background: #fff;
+    padding: 25px 0 10px;
+    text-align: center;
+}
+
+.combo-title {
+    font-size: 26px;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* три комбо горизонтально */
+.combo-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+/* один блок комбо */
+.combo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+/* один "этаж" комбо */
+.combo-row {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+}
+
+/* иконка внутри комбо */
+.combo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    transition: transform .20s;
+}
+
+.combo-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transition: transform .20s;
+}
+
+/* hover — translateY + scale */
+.combo-item:hover img {
+    transform: scale(1.10) translateY(-3px);
+}
+
+/* подпись под десертом */
+.dessert-note {
+    font-size: 13px;
+    margin-top: 6px;
+    opacity: 0.75;
+}
+
+/* адаптив */
+@media (max-width: 900px) {
+    .combo-wrapper {
+        gap: 25px;
+        justify-content: center;
+    }
+}
