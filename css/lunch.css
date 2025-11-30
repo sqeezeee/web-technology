@@ -118,7 +118,6 @@
     color: #fff;
 }
 
-/* selected card highlight */
 .dish.selected {
     outline: 3px solid rgba(26,138,58,0.08);
     box-shadow: 0 6px 18px rgba(26,138,58,0.06);
@@ -214,7 +213,6 @@
     color: white;
 }
 
-/* order-summary styling */
 .order-summary {
     background: #fff;
     padding: 12px;
@@ -226,7 +224,6 @@
 .order-summary .category-title { font-weight: 700; margin-top:8px; margin-bottom:6px; }
 .order-summary .item-line { margin:4px 0; font-size:15px; }
 
-/* order total */
 .order-total-block {
     margin: 8px 0 0;
     text-align: left;
@@ -260,7 +257,6 @@
     margin-bottom: 14px;
 }
 
-/* grid 3 колонки */
 .combos-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -435,7 +431,7 @@
         gap: 20px;
     }
 }
-/* ===== БЛОК КОМБО ===== */
+/* БЛОК КОМБО*/
 
 .combo-section {
     background: #fff;
@@ -488,7 +484,6 @@
     transition: transform .20s;
 }
 
-/* hover — translateY + scale */
 .combo-item:hover img {
     transform: scale(1.10) translateY(-3px);
 }
