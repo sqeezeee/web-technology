@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 showModal('Заказ успешно оформлен!', true);
             } else {
                 const err = await res.json();
-                showModal('Ошибка сервера: ' + (err.error || 'Неизвестная ошибка'));
+                showModal((err.error || 'Неизвестная ошибка'));
             }
         } catch (error) {
             showModal('Ошибка сети. Попробуйте позже.');
