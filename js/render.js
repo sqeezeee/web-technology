@@ -1,326 +1,233 @@
-// ЗАГРУЗКА ДАННЫХ ЧЕРЕЗ API
-async function loadDishes() {
-  try {
-    const url = "https://edu.std-900.ist.mospolytech.ru/labs/api/dishes";
-    const response = await fetch(url);
+const API_KEY = '5389748a-698c-479b-b876-cae54054c3ff';
+const API_URL = 'https://edu.std-900.ist.mospolytech.ru/labs/api/dishes';
 
-    if (!response.ok) {
-      throw new Error("Ошибка загрузки данных с API");
-    }
+let dishes = [];
 
-    const data = await response.json();
-
-    // Сохраняем глобально
-    dishes = data;
-
-    // Сортировка по алфавиту
-    dishes.sort((a, b) => a.name.localeCompare(b.name, "ru"));
-
-    return true;
-  } catch (err) {
-    console.error("loadDishes() error:", err);
-    return false;
-  }
-}
-
-// ОСНОВНОЙ СКРИПТ
-document.addEventListener("DOMContentLoaded", async () => {
-  // Загружаем блюда
-  const ok = await loadDishes();
-  if (!ok || dishes.length === 0) {
-    alert("Ошибка загрузки блюд. Попробуйте обновить страницу.");
-    return;
-  }
-
-  // Все категории
-  const categories = ["soup", "main-course", "salad", "drink", "dessert"];
-  const grids = {};
-
-  // Находим гриды на странице
-  categories.forEach((cat) => {
-    const el = document.querySelector(`.dish-grid[data-category="${cat}"]`);
-    grids[cat] = el;
-  });
-
-  // Создание карточки
-  function makeCard(d) {
-    const card = document.createElement("div");
-    card.className = "dish";
-    card.dataset.dish = d.keyword;
-    card.dataset.kind = d.kind || "";
-
-    card.innerHTML = `
-      <img src="${d.image}" alt="${d.name}">
-      <p class="dish-price">${d.price}₽</p>
-      <p class="dish-name">${d.name}</p>
-      <p class="dish-weight">${d.count}</p>
-      <button class="dish-add" type="button">Добавить</button>
-    `;
-
-    return card;
-  }
-
-  // Рендер карточек
-  dishes.forEach((d) => {
-    if (!grids[d.category]) {
-      console.warn("Нет грида для категории:", d.category);
-      return;
-    }
-    grids[d.category].appendChild(makeCard(d));
-  });
-
-  // ФИЛЬТРЫ
-
-  const filterContainers = document.querySelectorAll(".filters");
-
-  filterContainers.forEach((container) => {
-    const cat = container.dataset.for;
-
-    container.addEventListener("click", (e) => {
-      const btn = e.target.closest(".filter-btn");
-      if (!btn) return;
-
-      btn.classList.toggle("active");
-
-      const activeKinds = [
-        ...container.querySelectorAll(".filter-btn.active"),
-      ].map((b) => b.dataset.kind);
-
-      const grid = document.querySelector(`.dish-grid[data-category="${cat}"]`);
-      if (!grid) return;
-
-      const cards = [...grid.querySelectorAll(".dish")];
-
-      if (activeKinds.length === 0) {
-        cards.forEach((c) => (c.style.display = ""));
-      } else {
-        cards.forEach((c) => {
-          c.style.display = activeKinds.includes(c.dataset.kind) ? "" : "none";
-        });
-      }
-    });
-  });
-
-  // ВЫБОР БЛЮД
-
-  const selected = {
+// Хранилище выбранных ID
+// Структура в localStorage будет
+const STORAGE_KEY = 'selectedDishes';
+const selected = {
     soup: null,
     main: null,
     salad: null,
     drink: null,
-    dessert: null,
-  };
+    dessert: null
+};
 
-  function findDishByKeyword(k) {
-    return dishes.find((d) => d.keyword === k);
-  }
+// Варианты комбо (для валидации кнопки)
+const VALID_COMBOS = [
+    ['soup', 'main', 'salad', 'drink'],
+    ['soup', 'main', 'drink'],
+    ['soup', 'salad', 'drink'],
+    ['main', 'salad', 'drink'],
+    ['main', 'drink']
+];
 
-  // СВОДКА ЗАКАЗА
-
-  const orderSummary = document.getElementById("order-summary");
-  const orderTotalBlock = document.getElementById("order-total-block");
-  const orderTotalEl = document.getElementById("order-total");
-
-  function updateSummary() {
-    const any = Object.values(selected).some((v) => v);
-
-    if (!any) {
-      orderSummary.innerHTML = `<p class="empty-summary">Ничего не выбрано</p>`;
-      orderTotalBlock.style.display = "none";
-      return;
+function loadFromStorage() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+            const data = JSON.parse(raw);
+            Object.keys(selected).forEach(key => {
+                if (data[key]) selected[key] = data[key];
+            });
+        }
+    } catch (e) {
+        console.error('Ошибка чтения LocalStorage', e);
     }
+}
 
-    const orderCats = [
-      { key: "soup", title: "Суп" },
-      { key: "main-course", title: "Главное блюдо" },
-      { key: "salad", title: "Салат / Стартер" },
-      { key: "drink", title: "Напиток" },
-      { key: "dessert", title: "Десерт" },
-    ];
+function saveToStorage() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(selected));
+}
 
-    orderSummary.innerHTML = "";
+// Загрузка блюд
+async function loadDishes() {
+    try {
+        const response = await fetch(`${API_URL}?api_key=${API_KEY}`);
+        if (!response.ok) throw new Error('Network response was not ok');
+        dishes = await response.json();
+        dishes.sort((a, b) => a.name.localeCompare(b.name));
+        return true;
+    } catch (error) {
+        console.error('Ошибка загрузки блюд:', error);
+        alert('Не удалось загрузить меню. Попробуйте обновить страницу.');
+        return false;
+    }
+}
+
+// Проверка валидности комбо
+function isComboValid() {
+    // Собираем массив категорий, которые выбраны (исключая десерт, он опционален)
+    const currentCategories = [];
+    if (selected.soup) currentCategories.push('soup');
+    if (selected.main) currentCategories.push('main');
+    if (selected.salad) currentCategories.push('salad');
+    if (selected.drink) currentCategories.push('drink');
+
+    // Сортируем для сравнения
+    currentCategories.sort();
+
+    // Проверяем, совпадает ли текущий набор с одним из валидных
+    return VALID_COMBOS.some(combo => {
+        const sortedCombo = [...combo].sort();
+        return JSON.stringify(sortedCombo) === JSON.stringify(currentCategories);
+    });
+}
+
+// Обновление Sticky Bar
+function updateStickyBar() {
+    const barWrapper = document.getElementById('order-bar-wrapper');
+    const totalPriceEl = document.getElementById('order-total-price');
+    const linkBtn = document.getElementById('order-link');
+
+    // Считаем сумму
     let total = 0;
+    let hasSelection = false;
 
-    orderCats.forEach((c) => {
-      const block = document.createElement("div");
-      block.className = "category-title";
-      block.textContent = c.title;
-      orderSummary.appendChild(block);
-
-      if (selected[c.key]) {
-        const d = findDishByKeyword(selected[c.key]);
-        const line = document.createElement("div");
-        line.className = "item-line";
-        line.textContent = `${d.name} — ${d.price}₽`;
-        orderSummary.appendChild(line);
-        total += d.price;
-      } else {
-        const line = document.createElement("div");
-        line.className = "item-line empty";
-        line.textContent = `Блюдо не выбрано`;
-        orderSummary.appendChild(line);
-      }
+    Object.values(selected).forEach(id => {
+        if (id) {
+            hasSelection = true;
+            const dish = dishes.find(d => d.id === id);
+            if (dish) total += dish.price;
+        }
     });
 
-    if (total > 0) {
-      orderTotalBlock.style.display = "";
-      orderTotalEl.textContent = total + "₽";
-    } else {
-      orderTotalBlock.style.display = "none";
+    // Скрываем, если ничего не выбрано
+    if (!hasSelection) {
+        barWrapper.style.display = 'none';
+        return;
     }
-  }
 
-  // Выбор блюда (клик по кнопке или карточке)
-  document.body.addEventListener("click", (e) => {
-    const card = e.target.closest(".dish");
-    if (!card) return;
+    barWrapper.style.display = 'flex';
+    totalPriceEl.textContent = `${total}₽`;
 
-    const keyword = card.dataset.dish;
-    const dish = findDishByKeyword(keyword);
-    if (!dish) return;
+    // Валидация ссылки
+    if (isComboValid()) {
+        linkBtn.classList.remove('disabled');
+        linkBtn.removeAttribute('aria-disabled');
+    } else {
+        linkBtn.classList.add('disabled');
+        linkBtn.setAttribute('aria-disabled', 'true');
+    }
+}
 
-    selected[dish.category] = dish.keyword;
+// Создание карточки
+function createCard(dish) {
+    const card = document.createElement('div');
+    card.className = 'dish';
+    card.dataset.id = dish.id;
+    card.dataset.kind = dish.kind;
 
-    document.querySelectorAll(".dish").forEach((c) => {
-      const d = findDishByKeyword(c.dataset.dish);
-      if (d.category === dish.category) {
-        c.classList.toggle("selected", c.dataset.dish === dish.keyword);
-      }
-    });
-
-    updateSummary();
-  });
-
-  // СБРОС
-
-  const form = document.getElementById("order-form");
-
-  form.addEventListener("reset", () => {
-    Object.keys(selected).forEach((k) => (selected[k] = null));
-    document
-      .querySelectorAll(".dish.selected")
-      .forEach((el) => el.classList.remove("selected"));
-    setTimeout(updateSummary, 0);
-  });
-
-  updateSummary();
-
-  // ПРОВЕРКА КОМБО
-
-  const VARIANTS = [
-    ["soup", "main-course", "salad", "drink"],
-    ["soup", "main-course", "drink"],
-    ["soup", "salad", "drink"],
-    ["main-course", "salad", "drink"],
-    ["main-course", "drink"],
-  ];
-
-  function norm(a) {
-    return [...new Set(a)].sort();
-  }
-
-  function isExactVariant(a) {
-    return VARIANTS.some(
-      (v) => JSON.stringify(norm(v)) === JSON.stringify(norm(a))
-    );
-  }
-
-  function isMissingOnlyDrink(a) {
-    return VARIANTS.some((v) => {
-      if (!v.includes("drink")) return false;
-      const base = v.filter((x) => x !== "drink");
-      return JSON.stringify(norm(base)) === JSON.stringify(norm(a));
-    });
-  }
-
-  function showNotification(text, iconKey = "main") {
-    const overlay = document.createElement("div");
-    overlay.className = "notify-overlay";
-
-    overlay.innerHTML = `
-      <div class="notify-backdrop"></div>
-      <div class="notify-box">
-        <img src="img/icons/${iconKey}.png">
-        <div class="notify-text">${text}</div>
-        <button class="notify-ok" type="button">Окей 👌</button>
-      </div>
+    card.innerHTML = `
+        <img src="${dish.image}" alt="${dish.name}">
+        <p class="dish-price">${dish.price}₽</p>
+        <p class="dish-name">${dish.name}</p>
+        <p class="dish-weight">${dish.count}</p>
+        <button class="dish-add">Добавить</button>
     `;
 
-    document.body.appendChild(overlay);
-    document.body.style.overflow = "hidden";
+    // Обработчик клика
+    card.addEventListener('click', () => {
+        const category = dish.category === 'main-course' ? 'main' : dish.category;
+        
+        // Логика выбора: если уже выбран этот ID - ничего не меняем (или можно деселект), 
+        // если выбран другой в этой категории - меняем.
+        selected[category] = dish.id;
+        
+        saveToStorage();
+        updateVisualSelection();
+        updateStickyBar();
+    });
 
-    function close() {
-      document.body.style.overflow = "";
-      overlay.remove();
-    }
+    return card;
+}
 
-    overlay.querySelector(".notify-ok").addEventListener("click", close);
-    overlay.querySelector(".notify-backdrop").addEventListener("click", close);
-  }
+// Визуальное выделение карточек
+function updateVisualSelection() {
+    document.querySelectorAll('.dish').forEach(card => {
+        const id = parseInt(card.dataset.id);
+        // Проверяем, есть ли этот ID в values объекта selected
+        const isSelected = Object.values(selected).includes(id);
+        if (isSelected) {
+            card.classList.add('selected');
+        } else {
+            card.classList.remove('selected');
+        }
+    });
+}
 
-  // Функция, выполняющая проверку набора выбранных категорий при отправке формы.
-  function validateComboOnSubmit(evt) {
-    // Формируем набор выбранных категорий, игнорируем dessert при проверке совпадения
-    const chosenCats = Object.keys(selected).filter(
-      (k) => selected[k] && k !== "dessert"
-    );
-    // Если совсем ничего не выбрано
-    if (chosenCats.length === 0) {
-      evt.preventDefault();
-      showNotification("Ничего не выбрано. Выберите блюда для заказа", "soup");
-      return;
+// Рендер по категориям
+function renderDishes() {
+    const categories = ['soup', 'main-course', 'salad', 'drink', 'dessert'];
+    
+    categories.forEach(cat => {
+        const container = document.querySelector(`.dish-grid[data-category="${cat}"]`);
+        if (!container) return;
+        
+        container.innerHTML = '';
+        const categoryDishes = dishes.filter(d => d.category === cat);
+        
+        categoryDishes.forEach(dish => {
+            container.appendChild(createCard(dish));
+        });
+    });
+}
+
+// Фильтры
+function initFilters() {
+    document.querySelectorAll('.filters').forEach(filterBlock => {
+        filterBlock.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('filter-btn')) return;
+            
+            const btn = e.target;
+            const isActive = btn.classList.contains('active');
+            
+            // Сброс всех кнопок в группе
+            filterBlock.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            
+            if (!isActive) {
+                btn.classList.add('active');
+                const kind = btn.dataset.kind;
+                const category = filterBlock.dataset.for; // soup, main, etc.
+                
+                // Находим нужный грид
+                // Т.к. main-course != main в data-category, делаем маппинг
+                let gridSelector = `.dish-grid[data-category="${category}"]`;
+                if (category === 'main') gridSelector = `.dish-grid[data-category="main-course"]`;
+                
+                const grid = document.querySelector(gridSelector);
+                if (grid) {
+                    Array.from(grid.children).forEach(card => {
+                        if (card.dataset.kind === kind) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+            } else {
+                // Если нажали на активную - сброс фильтра
+                const category = filterBlock.dataset.for;
+                let gridSelector = `.dish-grid[data-category="${category}"]`;
+                if (category === 'main') gridSelector = `.dish-grid[data-category="main-course"]`;
+                
+                const grid = document.querySelector(gridSelector);
+                if (grid) {
+                    Array.from(grid.children).forEach(card => card.style.display = 'flex');
+                }
+            }
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    loadFromStorage();
+    const loaded = await loadDishes();
+    if (loaded) {
+        renderDishes();
+        updateVisualSelection();
+        updateStickyBar();
+        initFilters();
     }
-    // Если набор точно соответствует одному из вариантов — разрешаем отправку
-    if (isExactVariant(chosenCats)) {
-      return;
-    }
-    // Если пользователь выбрал все необходимые блюда, кроме напитка, то просим выбрать напиток
-    if (isMissingOnlyDrink(chosenCats)) {
-      evt.preventDefault();
-      showNotification("Выберите напиток", "drink");
-      return;
-    }
-    // Специфические проверки для прочих ситуаций: // 1) Выбран суп, но нет ни main, ни salad
-    if (
-      chosenCats.includes("soup") &&
-      !chosenCats.includes("main") &&
-      !chosenCats.includes("salad")
-    ) {
-      evt.preventDefault();
-      showNotification("Выберите главное блюдо/салат/стартер", "main");
-      return;
-    }
-    // 2) Выбран салат/стартер, но не выбран ни суп, ни главное блюдо
-    if (
-      chosenCats.includes("salad") &&
-      !chosenCats.includes("soup") &&
-      !chosenCats.includes("main")
-    ) {
-      evt.preventDefault();
-      showNotification("Выберите суп или главное блюдо", "soup");
-      return;
-    }
-    // 3) Выбран только напиток/десерт (или набор без main)
-    // Если в выбранных есть только drink (и/или dessert), но нет main => просим выбрать главное блюдо
-    const hasOnlyDrinkLike = chosenCats.every((c) => c === "drink");
-    if (
-      hasOnlyDrinkLike ||
-      (chosenCats.includes("drink") &&
-        !chosenCats.includes("main") &&
-        !chosenCats.includes("soup") &&
-        !chosenCats.includes("salad"))
-    ) {
-      evt.preventDefault();
-      showNotification("Выберите главное блюдо", "main");
-      return;
-    }
-    // Если ни одно из условий не сработало — универсальное сообщение (не даём отправлять)
-    evt.preventDefault();
-    showNotification(
-      "Состав заказа не соответствует доступным вариантам. Проверьте набор блюд",
-      "main"
-    );
-  }
-  // Привязываем проверку к событию отправки формы
-  form.addEventListener("submit", validateComboOnSubmit);
 });

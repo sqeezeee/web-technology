@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Оформить заказ — Вкусно</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lunch.css">
+</head>
+<body>
+  <div id="site-root">
+    <div id="scale-wrapper">
+      <div id="scale-container">
+
+        <header>
+          <h1>Ресторан "Вкусно"</h1>
+          <nav>
+            <a href="index.html#about">О нас</a>
+            <a href="make_lunch.html">Собрать ланч</a>
+            <a class="active" href="placeOrder.html">Оформить заказ</a>
+            <a href="orders.html">Заказы</a>
+            <a href="#contacts">Контакты</a>
+          </nav>
+        </header>
+
+        <main>
+          <section class="order-section">
+            <h2 class="order-title">Состав заказа</h2>
+
+            <!-- Сетка для выбранных блюд -->
+            <div id="order-items" class="dish-grid order-grid"></div>
+
+            <!-- Сообщение если ничего не выбрано -->
+            <p id="empty-order" class="empty-summary" style="display:none; text-align: center; margin: 40px 0;">
+                Ничего не выбрано. Чтобы добавить блюда в заказ, перейдите на страницу 
+                <a href="make_lunch.html" class="link-accent">Собрать ланч</a>.
+            </p>
+
+            <h2 class="order-title" style="margin-top:40px;">Оформление заказа</h2>
+
+            <!-- Форма заказа -->
+            <form id="place-order-form" class="order-form" novalidate>
+              <div class="order-columns">
+
+                <!-- Левая колонка: Сводка -->
+                <div class="order-block">
+                  <h3>Ваш заказ</h3>
+
+                  <div id="order-summary" class="order-summary">
+                      <!-- JS заполнит это -->
+                  </div>
+
+                  <div id="order-total-block" style="margin-top:15px;">
+                      <h4 style="display: inline;">Итого: </h4>
+                      <span id="order-total" style="font-weight:bold; font-size:18px;">0₽</span>
+                  </div>
+
+                  <label for="comment" style="margin-top: 15px; display:block;">Комментарий к заказу</label>
+                  <textarea id="comment" name="comment" rows="4"></textarea>
+                </div>
+
+                <!-- Правая колонка: Данные клиента -->
+                <div class="order-block">
+                  <h3>Данные клиента</h3>
+
+                  <label for="full_name">Имя</label>
+                  <input id="full_name" name="full_name" type="text" required>
+
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" required>
+
+                  <label class="checkbox-label" style="margin: 10px 0;">
+                      <input id="subscribe" name="subscribe" type="checkbox" checked>
+                      <span>Получать новости и акции</span>
+                  </label>
+
+                  <label for="phone">Телефон</label>
+                  <input id="phone" name="phone" type="tel" required>
+
+                  <label for="delivery_address">Адрес доставки</label>
+                  <input id="delivery_address" name="delivery_address" type="text" required>
+                  <div style="font-size: 12px; color: #666; margin-bottom: 10px;">Доставка осуществляется только по Москве</div>
+
+                  <p class="radio-title" style="margin-top:10px;">Время доставки</p>
+                  <label class="radio-label">
+                      <input id="delivery_asap" type="radio" name="delivery_type" value="now" required checked>
+                      <span>Как можно скорее</span>
+                  </label>
+
+                  <label class="radio-label">
+                      <input id="delivery_settime" type="radio" name="delivery_type" value="by_time" required>
+                      <span>К указанному времени</span>
+                  </label>
+
+                  <label for="delivery_time">Укажите время</label>
+                  <input id="delivery_time" name="delivery_time" type="time"
+                         min="07:00" max="23:00" step="300">
+                  <div style="font-size: 12px; color: #666;">Доступно с 7:00 до 23:00</div>
+
+                  <div class="order-buttons" style="margin-top:20px;">
+                      <button type="reset" class="reset-btn">Сбросить</button>
+                      <button type="submit" class="submit-btn">Отправить</button>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </section>
+        </main>
+
+        <footer id="contacts">
+          <p>Позвонить нам <a href="tel:+70000000000">+7-000-000-00-00</a></p>
+        </footer>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/placeOrder.js"></script>
+</body>
+</html>

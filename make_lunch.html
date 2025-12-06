@@ -11,7 +11,6 @@
 </head>
 
 <body>
-    <a id="active" href="make_lunch.html"></a>
     <div id="site-root">
         <div id="scale-wrapper">
             <div id="scale-container">
@@ -20,7 +19,9 @@
                     <h1>Ресторан "Вкусно"</h1>
                     <nav>
                         <a href="index.html#about">О нас</a>
-                        <a id="active" href="make_lunch.html">Собрать ланч</a>
+                        <!-- Класс active для подсветки -->
+                        <a class="active" href="make_lunch.html">Собрать ланч</a>
+                        <a href="placeOrder.html">Оформить заказ</a>
                         <a href="orders.html">Заказы</a>
                         <a href="#contacts">Контакты</a>
                     </nav>
@@ -75,148 +76,74 @@
     </div>
 </section>
 
-
                 <main>
-
                     <!-- СУПЫ -->
                     <section class="food-section" data-section="soup-section">
                         <h2>Супы</h2>
-
                         <div class="filters" data-for="soup">
                             <button type="button" class="filter-btn" data-kind="fish">Рыбный</button>
                             <button type="button" class="filter-btn" data-kind="meat">Мясной</button>
                             <button type="button" class="filter-btn" data-kind="veg">Вегетарианский</button>
                         </div>
-
                         <div class="dish-grid" data-category="soup"></div>
                     </section>
 
                     <!-- ГЛАВНЫЕ -->
                     <section class="food-section" data-section="main-section">
                         <h2>Главные блюда</h2>
-
                         <div class="filters" data-for="main">
                             <button type="button" class="filter-btn" data-kind="fish">Рыбное</button>
                             <button type="button" class="filter-btn" data-kind="meat">Мясное</button>
                             <button type="button" class="filter-btn" data-kind="veg">Вегетарианское</button>
                         </div>
-
                         <div class="dish-grid" data-category="main-course"></div>
                     </section>
 
-                    <!-- САЛАТЫ / СТАРТЕРЫ -->
+                    <!-- САЛАТЫ -->
                     <section class="food-section" data-section="salad-section">
                         <h2>Салаты и стартеры</h2>
-
                         <div class="filters" data-for="salad">
                             <button type="button" class="filter-btn" data-kind="fish">Рыбный</button>
                             <button type="button" class="filter-btn" data-kind="meat">Мясной</button>
                             <button type="button" class="filter-btn" data-kind="veg">Вегетарианский</button>
                         </div>
-
                         <div class="dish-grid" data-category="salad"></div>
                     </section>
 
                     <!-- НАПИТКИ -->
                     <section class="food-section" data-section="drink-section">
                         <h2>Напитки</h2>
-
                         <div class="filters" data-for="drink">
                             <button type="button" class="filter-btn" data-kind="cold">Холодный</button>
                             <button type="button" class="filter-btn" data-kind="hot">Горячий</button>
                         </div>
-
                         <div class="dish-grid" data-category="drink"></div>
                     </section>
 
                     <!-- ДЕСЕРТЫ -->
                     <section class="food-section" data-section="dessert-section">
                         <h2>Десерты</h2>
-
                         <div class="filters" data-for="dessert">
                             <button type="button" class="filter-btn" data-kind="small">Маленькая порция</button>
                             <button type="button" class="filter-btn" data-kind="medium">Средняя порция</button>
                             <button type="button" class="filter-btn" data-kind="large">Большая порция</button>
                         </div>
-
                         <div class="dish-grid" data-category="dessert"></div>
                     </section>
-
                 </main>
 
-                <!-- БЛОК ФОРМЫ -->
-                <section class="order-section">
-                    <h2 class="order-title">Сделать заказ</h2>
-
-                    <form id="order-form" class="order-form" action="https://httpbin.org/post" method="POST">
-
-                        <div class="order-columns">
-
-                            <!-- БЛОК 1 — ВАШ ЗАКАЗ -->
-                            <div class="order-block">
-                                <h3>Ваш заказ</h3>
-
-                                <div id="order-summary" class="order-summary">
-                                    <p class="empty-summary">Ничего не выбрано</p>
-                                </div>
-
-                                <div id="order-total-block" style="display:none; margin-top:12px;">
-                                    <h4>Стоимость заказа:</h4>
-                                    <p id="order-total" style="font-weight:bold; font-size:18px;"></p>
-                                </div>
-
-                                <label for="comment">Комментарий</label>
-                                <textarea id="comment" name="comment" rows="4"></textarea>
-                            </div>
-
-                            <!-- БЛОК 2 — ДАННЫЕ КЛИЕНТА -->
-                            <div class="order-block">
-                                <h3>Данные клиента</h3>
-
-                                <label for="name">Имя*</label>
-                                <input id="name" name="name" type="text" required>
-
-                                <label for="email">Email*</label>
-                                <input id="email" name="email" type="email" required>
-
-                                <label class="checkbox-label">
-                                    <input id="subscribe" name="subscribe" type="checkbox" checked>
-                                    <span>Получать новости и акции</span>
-                                </label>
-
-                                <label for="phone">Телефон*</label>
-                                <input id="phone" name="phone" type="tel" required>
-
-                                <label for="address">Адрес*</label>
-                                <input id="address" name="address" type="text" required>
-                                <em>Доставка осуществляется только по Москве</em>
-
-                                <p class="radio-title">Выберите время доставки*</p>
-                                <label class="radio-label">
-                                    <input id="delivery_asap" type="radio" name="delivery_type" value="asap" required>
-                                    <span>Как можно скорее</span>
-                                </label>
-
-                                <label class="radio-label">
-                                    <input id="delivery_settime" type="radio" name="delivery_type" value="set_time" required>
-                                    <span>Выбрать время</span>
-                                </label>
-
-                                <label for="delivery_time">Время доставки</label>
-                                <input id="delivery_time" name="delivery_time" type="time"
-                                       min="07:00" max="23:00" step="300">
-                                <em>Доступное время для доставки с 7:00 до 23:00</em>
-
-                                <div class="order-buttons">
-                                    <button type="reset" class="reset-btn">Сбросить</button>
-                                    <button type="submit" class="submit-btn">Отправить</button>
-                                </div>
-                            </div>
-
+                <!-- Панель оформления заказа (Sticky Bar) -->
+                <div class="order-bar-wrapper" id="order-bar-wrapper" style="display: none;">
+                    <div class="order-bar">
+                        <div class="order-bar-info">
+                            <span>Итого:</span>
+                            <span id="order-total-price" class="order-bar-price">0₽</span>
                         </div>
-
-                    </form>
-                </section>
+                        <a id="order-link" href="placeOrder.html" class="order-bar-btn disabled" aria-disabled="true">
+                            Перейти к оформлению
+                        </a>
+                    </div>
+                </div>
 
                 <footer id="contacts">
                     <p>Позвонить нам <a href="tel:+70000000000">+7-000-000-00-00</a></p>
@@ -230,5 +157,4 @@
     <script src="js/render.js"></script>
 
 </body>
-
 </html>
