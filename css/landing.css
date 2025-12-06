@@ -1,0 +1,55 @@
+/* Подключаем шрифт */
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('../fonts/RobotoFlex.ttf') format('truetype');
+}
+
+:root {
+    /* Создаем переменную с фирменным цветом */
+    --brand-color: tomato; 
+    --brand-color-dark: #d14415; /* Чуть темнее для наведения */
+}
+
+/* Сдвигаем контент вниз, чтобы фиксированное меню его не перекрывало */
+body {
+    padding-top: 70px;
+}
+
+/* Переопределяем стандартный класс text-primary на оранжевый */
+.text-primary {
+    color: var(--brand-color) !important;
+}
+
+/* Переопределяем главную кнопку Bootstrap */
+.btn-primary {
+    background-color: var(--brand-color);
+    border-color: var(--brand-color);
+}
+
+/* Эффект при наведении на кнопку */
+.btn-primary:hover {
+    background-color: var(--brand-color-dark);
+    border-color: var(--brand-color-dark);
+}
+
+/* Фон для секции Hero */
+.hero-section {
+    min-height: 80vh; /* Высота 80% от высоты экрана */
+    background: linear-gradient(135deg, #fff5f2 0%, #ffffff 100%); /* Легкий оранжевый градиент */
+}
+
+/* Анимация картинки (парение вверх-вниз) */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.hero-img {
+    animation: float 6s ease-in-out infinite; /* Применяем анимацию */
+}
+
+/* Фон для секции CTA (Призыв к действию) */
+.cta-section {
+    background-color: var(--brand-color);
+}

@@ -58,7 +58,7 @@ async function loadDishes() {
 
 // Проверка валидности комбо
 function isComboValid() {
-    // Собираем массив категорий, которые выбраны (исключая десерт, он опционален)
+    // Собираем массив категорий, которые выбраны
     const currentCategories = [];
     if (selected.soup) currentCategories.push('soup');
     if (selected.main) currentCategories.push('main');
@@ -131,8 +131,6 @@ function createCard(dish) {
     card.addEventListener('click', () => {
         const category = dish.category === 'main-course' ? 'main' : dish.category;
         
-        // Логика выбора: если уже выбран этот ID - ничего не меняем (или можно деселект), 
-        // если выбран другой в этой категории - меняем.
         selected[category] = dish.id;
         
         saveToStorage();
@@ -192,7 +190,6 @@ function initFilters() {
                 const category = filterBlock.dataset.for; // soup, main, etc.
                 
                 // Находим нужный грид
-                // Т.к. main-course != main в data-category, делаем маппинг
                 let gridSelector = `.dish-grid[data-category="${category}"]`;
                 if (category === 'main') gridSelector = `.dish-grid[data-category="main-course"]`;
                 

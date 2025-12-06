@@ -1,89 +1,230 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>"Вкусно"</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Вкусно — Доставка бизнес-ланчей</title>
+    
+    <!-- 1. Подключение стилей Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- 2. Подключение иконок Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- 3. Кастомные стили (цвета, шрифты) -->
+    <link rel="stylesheet" href="css/landing.css">
 </head>
-
 <body>
-    <header>
-        <h1>Ресторан "Вкусно"</h1>
-        <nav>
-            <a href="index.html#about">О нас</a>
-            <a id="active" href="make_lunch.html">Собрать ланч</a>
-            <a href="placeOrder.html">Оформить заказ</a>
-            <a href="orders.html">Заказы</a>
-            <a href="#contacts">Контакты</a>
-          </nav>
-    </header>
 
-    <main>
-        <section id="about">
-            <img src="img/banner.jpg" alt="Баннер">
-            <h2>О нас</h2>
-            <p>
-                "Вкусно" — доставка бизнес-ланчей в Москве. Мы привезем вам горячую вкусную еду в любую точку города к назначенному времени.
-            </p>
-        </section>
+    <!-- НАВИГАЦИЯ (Navbar) -->
+    <!-- navbar-expand-lg: меню сворачивается в бургер на экранах меньше Large -->
+    <!-- fixed-top: меню приклеено к верху экрана при прокрутке -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container">
+            <!-- Логотип / Бренд -->
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-egg-fried text-primary"></i> Вкусно
+            </a>
+            
+            <!-- Кнопка "Гамбургер" (появляется на мобильных) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Ссылки меню (скрываются в бургер на мобильных) -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- ms-auto сдвигает пункты вправо -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="make_lunch.html">Собрать ланч</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="placeOrder.html">Оформить заказ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orders.html">Заказы</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Якорная ссылка на блок контактов внизу этой страницы -->
+                        <a class="nav-link" href="#contacts">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <section id="advantages">
-            <h2>Преимущества "Вкусно"</h2>
-            <ul>
-                <li>Привозим обед к назначенному времени без опозданий</li>
-                <li>Надежно упаковываем блюда в удобные контейнеры бесплатно</li>
-                <li>Доставляем ланчи весь день с 7:00 до 23:00</li>
-            </ul>
-        </section>
+    <!-- БЛОК 1: HERO (Первый экран) -->
+    <!-- d-flex align-items-center: выравнивает содержимое по вертикали по центру -->
+    <section class="hero-section d-flex align-items-center" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- ТЕКСТ. order-2 order-lg-1 означает: 
+                     на мобильных этот блок будет вторым (под картинкой), 
+                     а на больших экранах (lg) — первым (слева). -->
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <h1 class="display-4 fw-bold mb-4">Собери свой идеальный бизнес-ланч</h1>
+                    <p class="lead text-muted mb-4">
+                        Забудьте о скучных обедах. В ресторане "Вкусно" вы сами конструктор своего счастья. 
+                    </p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <!-- Кнопка btn-primary окрашивается в томатный цвет через CSS -->
+                        <a href="make_lunch.html" class="btn btn-primary btn-lg px-4 me-md-2">Собрать ланч</a>
+                        <a href="#features" class="btn btn-outline-secondary btn-lg px-4">Узнать больше</a>
+                    </div>
+                </div>
+                
+                <!-- КАРТИНКА. order-1 order-lg-2: 
+                     на мобильных первая (сверху), на больших экранах вторая (справа). -->
+                <div class="col-lg-6 order-1 order-lg-2 mb-4 mb-lg-0 text-center">
+                    <img src="img/icons/soup.png" alt="Вкусный обед" class="img-fluid hero-img">
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="menu">
-            <h2>Топ-5 популярных блюд</h2>
-            <table>
-                <tr>
-                    <th>№</th>
-                    <th>Название</th>
-                    <th>Кол-во заказов в неделю</th>
-                    <th>Цена</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Паста Карбонара</td>
-                    <td>212</td>
-                    <td>410₽</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Салат Цезарь с курицей</td>
-                    <td>198</td>
-                    <td>320₽</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Борщ со сметаной</td>
-                    <td>175</td>
-                    <td>290₽</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Куриное филе с овощами</td>
-                    <td>163</td>
-                    <td>340₽</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Плов с говядиной</td>
-                    <td>147</td>
-                    <td>360₽</td>
-                </tr>
-            </table>
-        </section>
-    </main>
+    <!-- БЛОК 2: ПРЕИМУЩЕСТВА -->
+    <!-- py-5: padding (отступы) сверху и снизу размера 5 -->
+    <section class="py-5 bg-light" id="features">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Почему выбирают нас?</h2>
+                <p class="text-muted">Мы заботимся о том, чтобы вы ели вкусно и вовремя</p>
+            </div>
+            
+            <!-- g-4: расстояние между колонками -->
+            <div class="row g-4">
+                
+                <!-- Колонка 1. col-md-4: занимает 1/3 ширины на средних экранах и выше.
+                     На мобильных займет всю ширину автоматически. -->
+                <div class="col-md-4">
+                    <!-- card h-100: карточка на всю высоту родителя -->
+                    <div class="card h-100 border-0 shadow-sm p-3 text-center">
+                        <div class="card-body">
+                            <!-- Иконка -->
+                            <div class="feature-icon bg-primary bg-gradient text-white mb-3 mx-auto">
+                                <i class="bi bi-stopwatch"></i>
+                            </div>
+                            <h4 class="card-title">Быстрая доставка</h4>
+                            <p class="card-text text-muted">
+                                Гарантируем доставку горячего обеда точно к указанному времени.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-    <footer id="contacts">
-        <p>Позвонить нам <a href="tel:+70000000000">+7-000-000-00-00</a></p>
+                <!-- Колонка 2 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-3 text-center">
+                        <div class="card-body">
+                            <div class="feature-icon bg-primary bg-gradient text-white mb-3 mx-auto">
+                                <i class="bi bi-basket2"></i>
+                            </div>
+                            <h4 class="card-title">Свежие продукты</h4>
+                            <p class="card-text text-muted">
+                                Готовим из фермерских продуктов в день заказа.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Колонка 3 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-3 text-center">
+                        <div class="card-body">
+                            <div class="feature-icon bg-primary bg-gradient text-white mb-3 mx-auto">
+                                <i class="bi bi-wallet2"></i>
+                            </div>
+                            <h4 class="card-title">Выгодные комбо</h4>
+                            <p class="card-text text-muted">
+                                Чем больше блюд в комбо, тем выгоднее цена.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 3: CTA (Призыв к действию) -->
+    <section class="cta-section py-5 text-white text-center">
+        <div class="container py-4">
+            <h2 class="display-6 fw-bold mb-3">Голод не ждет!</h2>
+            <p class="lead mb-4">Соберите обед своей мечты всего за пару кликов.</p>
+            <a href="make_lunch.html" class="btn btn-light btn-lg rounded-pill px-5 fw-bold text-primary">Перейти к заказу</a>
+        </div>
+    </section>
+
+    <!-- БЛОК 4: КОНТАКТЫ И ФОРМА -->
+    <section class="py-5" id="contacts">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Большая общая карточка -->
+                    <div class="card border-0 shadow overflow-hidden">
+                        <!-- g-0 убирает отступы между колонками внутри row -->
+                        <div class="row g-0">
+                            
+                            <!-- Левая часть: Темный фон, Контакты -->
+                            <div class="col-md-6 bg-dark text-white p-5 d-flex flex-column justify-content-center">
+                                <h3 class="fw-bold mb-4">Наши контакты</h3>
+                                <div class="mb-4">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="bi bi-geo-alt-fill fs-4 me-3 text-primary"></i>
+                                        <span>г. Москва, ул. Большая Семёновская, 38</span>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="bi bi-telephone-fill fs-4 me-3 text-primary"></i>
+                                        <a href="tel:+70000000000" class="text-white text-decoration-none">+7-000-000-00-00</a>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-envelope-fill fs-4 me-3 text-primary"></i>
+                                        <a href="mailto:info@foodconstruct.ru" class="text-white text-decoration-none">info@foodconstruct.ru</a>
+                                    </div>
+                                </div>
+                                <div class="mt-auto">
+                                    <p class="small text-white-50">Мы работаем ежедневно с 07:00 до 23:00</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Правая часть: Белый фон, Форма -->
+                            <div class="col-md-6 p-5 bg-white">
+                                <h3 class="fw-bold mb-4">Напишите нам</h3>
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="feedbackName" class="form-label">Ваше имя</label>
+                                        <input type="text" class="form-control" id="feedbackName" placeholder="Иван">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="feedbackEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="feedbackEmail" placeholder="name@example.com">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="feedbackMessage" class="form-label">Сообщение</label>
+                                        <textarea class="form-control" id="feedbackMessage" rows="3"></textarea>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Отправить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФУТЕР -->
+    <footer class="bg-dark text-white py-4 text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Ресторан "Вкусно". Все права защищены.</p>
+        </div>
     </footer>
-</body>
 
+    <!-- Скрипт Bootstrap (нужен для работы меню-бургера на мобильных) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
